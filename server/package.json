@@ -1,0 +1,11 @@
+{
+  "name": "coolkart-backend",
+  "version": "1.0.0",
+  "description": "Coolkart Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Siddhartha Chatterjee",
+  "license": "ISC"
+}
