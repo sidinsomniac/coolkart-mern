@@ -7,17 +7,18 @@ const { SECRET_KEY } = require("../utils/config");
 module.exports.register = async (req, res, next) => {
     const { body: { username, email, password } } = req;
     if (!(username && email && password)) throw new ExpressError("Please provide all the required details", 400);
-    const foundUser = await User.findOne({ username });
-    if (foundUser) throw new ExpressError("Username already exists");
+    const foundUser = await User.findOne({ $or: [{ email }, { username }] });
+    if (foundUser) throw new ExpressError("User already exists");
 
     const newUser = new User({
         username,
         email,
-        password
+        password,
+        role: "admin"
     });
     await newUser.save();
     res.status(201).json({
-        message: "User created successfully"
+        message: "Admin created successfully"
     });
 };
 
@@ -26,6 +27,7 @@ module.exports.login = async (req, res, next) => {
     const foundUser = await User.findOne({ username });
     if (!foundUser) throw new ExpressError("No such user found", 404);
     if (!foundUser.authenticate(password)) throw new ExpressError("Either username or password is incorrect", 401);
+    if (foundUser.role !== "admin") throw new ExpressError("Not authorized to login as admin", 401);
 
     const id = {
         id: foundUser._id,

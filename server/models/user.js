@@ -21,7 +21,7 @@ const userSchema = new Schema({
     role: {
         type: String,
         enum: ["user", "admin"],
-        default: "admin"
+        default: "user"
     }
 }, { timestamps: true });
 
@@ -33,8 +33,8 @@ userSchema.set('toJSON', {
     }
 });
 
-userSchema.virtual("password").set(function (password) {
-    this.passwordHash = bcrypt.hashSync(password, 12);
+userSchema.virtual("password").set(async function (password) {
+    this.passwordHash = await bcrypt.hashSync(password, 12);
 });
 
 userSchema.methods = {
