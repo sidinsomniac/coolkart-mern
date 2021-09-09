@@ -1,9 +1,14 @@
 const logger = require("./logger");
 
 const handleError = (err, req, res, next) => {
-    logger.info(err);
     const { statusCode = 500, message = 'Oh No, Something Went Wrong!' } = err;
-    res.status(statusCode).send(err);
+    if (typeof message === "string") {
+        res.status(statusCode).send({
+            message: [err]
+        });
+    } else {
+        res.status(statusCode).send(err);
+    }
 };
 
 

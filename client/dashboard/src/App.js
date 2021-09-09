@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Header from "./components/Header";
 
+import { Container } from "react-bootstrap";
 import './App.css';
+
+import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -11,11 +13,13 @@ const App = () => {
     <div className="App">
       <Router>
         <Header />
-        <Switch>
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/register" exact component={Register} />
-        </Switch>
+        <Container>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/" component={Dashboard} />
+          </Switch>
+        </Container>
       </Router>
     </div>
   );

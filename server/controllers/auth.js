@@ -1,12 +1,20 @@
 const jwt = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 
 const User = require("../models/user");
 const ExpressError = require("../utils/ExpressError");
 const { SECRET_KEY } = require("../utils/config");
+const { mapExpressValidatorResult } = require("../utils/validator");
 
 module.exports.register = async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (errors.errors?.length) {
+        throw new ExpressError(mapExpressValidatorResult(errors));
+    }
+
     const { body: { username, email, password } } = req;
-    if (!(username && email && password)) throw new ExpressError("Please provide all the required details", 400);
+
     const foundUser = await User.findOne({ username });
     if (foundUser) throw new ExpressError("Username already exists");
 
@@ -22,6 +30,12 @@ module.exports.register = async (req, res, next) => {
 };
 
 module.exports.login = async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (errors.errors?.length) {
+        throw new ExpressError(mapExpressValidatorResult(errors));
+    }
+
     const { body: { username, password } } = req;
     const foundUser = await User.findOne({ username });
     if (!foundUser) throw new ExpressError("No such user found", 404);
