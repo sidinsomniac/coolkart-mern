@@ -4,10 +4,10 @@ const router = express.Router();
 const { register, login } = require("../controllers/auth");
 
 const catchAsyncError = require("../utils/catchAsyncError");
-const { validateRegisterBody, validateLoginBody } = require("../utils/validator");
+const { validateRegisterBody, validateLoginBody, isRequestValidated } = require("../utils/validator");
 
-router.post("/login", validateLoginBody, catchAsyncError(login));
+router.post("/login", validateLoginBody, isRequestValidated, catchAsyncError(login));
 
-router.post("/register", validateRegisterBody, catchAsyncError(register));
+router.post("/register", validateRegisterBody, isRequestValidated, catchAsyncError(register));
 
 module.exports = router;

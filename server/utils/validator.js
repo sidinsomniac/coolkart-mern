@@ -1,4 +1,5 @@
-const { check } = require("express-validator");
+const { check, validationResult } = require("express-validator");
+const ExpressError = require("./ExpressError");
 
 const validateRegisterBody = [
     check('username')
@@ -34,8 +35,17 @@ const mapExpressValidatorResult = validatedArray => {
     return errorArray;
 };
 
+const isRequestValidated = (req, res, next) => {
+    const errors = validationResult(req);
+    console.log("Please Check", errors);
+    if (errors.errors?.length) {
+        throw new ExpressError(mapExpressValidatorResult(errors));
+    } else next();
+};
+
 module.exports = {
     validateRegisterBody,
     validateLoginBody,
+    isRequestValidated,
     mapExpressValidatorResult
 };

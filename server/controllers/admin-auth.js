@@ -6,7 +6,7 @@ const { SECRET_KEY } = require("../utils/config");
 
 module.exports.register = async (req, res, next) => {
     const { body: { username, email, password } } = req;
-    if (!(username && email && password)) throw new ExpressError("Please provide all the required details", 400);
+
     const foundUser = await User.findOne({ $or: [{ email }, { username }] });
     if (foundUser) throw new ExpressError("User already exists");
 
@@ -29,18 +29,14 @@ module.exports.login = async (req, res, next) => {
     if (!foundUser.authenticate(password)) throw new ExpressError("Either username or password is incorrect", 401);
     if (foundUser.role !== "admin") throw new ExpressError("Not authorized to login as admin", 401);
 
-    const id = {
-        id: foundUser._id,
-    };
-
-    const token = jwt.sign({ ...id }, SECRET_KEY, { expiresIn: "1h" });
-
     const user = {
+        id: foundUser._id,
         username: foundUser.username,
         role: foundUser.role,
-        email: foundUser.email,
-        ...id
+        email: foundUser.email
     };
+
+    const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: "1h" });
 
     res.status(200).json({ user, token });
 };
