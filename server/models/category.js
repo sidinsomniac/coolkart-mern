@@ -16,4 +16,12 @@ const categorySchema = new Schema({
     timestamps: true
 });
 
+categorySchema.set('toJSON', {
+    transform: (document, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString();
+        delete returnedObject._id;
+        delete returnedObject.__v;
+    }
+});
+
 module.exports = model("Category", categorySchema);

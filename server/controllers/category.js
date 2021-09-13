@@ -7,9 +7,7 @@ module.exports.createCategory = async (req, res) => {
         name,
         slug: slugify(name)
     };
-
     if (parentId) categoryObj.parentId = parentId;
-
     const newCategory = new Category(categoryObj);
     await newCategory.save();
     res.send("New category created");

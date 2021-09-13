@@ -28,7 +28,7 @@ module.exports.login = async (req, res, next) => {
     if (!foundUser.authenticate(password)) throw new ExpressError("Either username or password is incorrect", 401);
 
     const user = {
-        id: foundUser._id,
+        id: foundUser.id,
         username: foundUser.username,
         role: foundUser.role,
         email: foundUser.email

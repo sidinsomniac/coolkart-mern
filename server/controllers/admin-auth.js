@@ -30,7 +30,7 @@ module.exports.login = async (req, res, next) => {
     if (foundUser.role !== "admin") throw new ExpressError("Not authorized to login as admin", 401);
 
     const user = {
-        id: foundUser._id,
+        id: foundUser.id,
         username: foundUser.username,
         role: foundUser.role,
         email: foundUser.email
