@@ -7,10 +7,13 @@ module.exports.createCategory = async (req, res) => {
         name,
         slug: slugify(name)
     };
+
+    if (req.file?.path) categoryObj.categoryImage = req.file.path;
     if (parentId) categoryObj.parentId = parentId;
+
     const newCategory = new Category(categoryObj);
     await newCategory.save();
-    res.send("New category created");
+    res.send(newCategory);
 };
 
 module.exports.getCategories = async (req, res) => {
@@ -36,6 +39,7 @@ const createCategories = (categories, parentId) => {
             parentId: cate.parentId,
             type: cate.type,
             children: createCategories(categories, cate.id),
+            ...(cate.categoryImage && { categoryImage: cate.categoryImage })
         });
     }
 

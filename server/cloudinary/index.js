@@ -8,15 +8,29 @@ cloudinary.config({
     api_secret: CLOUDINARY_SECRET
 });
 
-const storage = new CloudinaryStorage({
+const baseStorageInstance = {
     cloudinary,
     params: {
-        folder: 'Coolkart',
         allowedFormats: ['jpeg', 'png', 'jpg']
+    }
+};
+
+const productStorage = new CloudinaryStorage({
+    ...baseStorageInstance,
+    params: {
+        folder: 'Coolkart/products'
+    }
+});
+
+const categoryStorage = new CloudinaryStorage({
+    ...baseStorageInstance,
+    params: {
+        folder: 'Coolkart/categories',
     }
 });
 
 module.exports = {
     cloudinary,
-    storage
+    productStorage,
+    categoryStorage
 };

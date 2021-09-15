@@ -1,5 +1,6 @@
 const slugify = require("slugify");
 const Product = require("../models/product");
+const ExpressError = require("../utils/ExpressError");
 
 module.exports.createProduct = async (req, res) => {
     const { body: {
@@ -8,7 +9,9 @@ module.exports.createProduct = async (req, res) => {
         description,
         quantity,
         category
-    }, file: { path: productPhoto } } = req;
+    } } = req;
+    const productPhoto = req.file?.path;
+    if (!productPhoto) throw new ExpressError("A product image is required");
     const newProduct = new Product(
         {
             name,
@@ -22,7 +25,7 @@ module.exports.createProduct = async (req, res) => {
         }
     );
     await newProduct.save();
-    res.status(200).json(newProduct);
+    res.status(200).json("Product saved successfully");
 };
 
 module.exports.getProducts = async (req, res) => {

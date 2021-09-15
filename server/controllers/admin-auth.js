@@ -36,7 +36,7 @@ module.exports.login = async (req, res, next) => {
         email: foundUser.email
     };
 
-    const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: "2h" });
 
     res.status(200).json({ user, token });
 };

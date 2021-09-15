@@ -11,6 +11,7 @@ const categorySchema = new Schema({
         required: true,
         unique: true
     },
+    categoryImage: String,
     parentId: String
 }, {
     timestamps: true

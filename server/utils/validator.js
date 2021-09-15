@@ -22,6 +22,22 @@ const validateLoginBody = [
         .notEmpty()
 ];
 
+const validateProductBody = [
+    check("name")
+        .notEmpty(),
+    check("price")
+        .notEmpty()
+        .isInt({ min: 1 }),
+    check("description")
+        .notEmpty()
+        .isLength({ max: 1000 }),
+    check("quantity")
+        .notEmpty()
+        .isNumeric(),
+    check("category")
+        .notEmpty(),
+];
+
 const mapExpressValidatorResult = validatedArray => {
     const expressError = {
         message: "",
@@ -35,9 +51,8 @@ const mapExpressValidatorResult = validatedArray => {
     return errorArray;
 };
 
-const isRequestValidated = (req, res, next) => {
+const isRequestValidated = (req, _, next) => {
     const errors = validationResult(req);
-    console.log("Please Check", errors);
     if (errors.errors?.length) {
         throw new ExpressError(mapExpressValidatorResult(errors));
     } else next();
@@ -46,6 +61,7 @@ const isRequestValidated = (req, res, next) => {
 module.exports = {
     validateRegisterBody,
     validateLoginBody,
+    validateProductBody,
     isRequestValidated,
     mapExpressValidatorResult
 };
