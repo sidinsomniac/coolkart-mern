@@ -1,18 +1,23 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
+
 import { loginUser } from "../../actions/actionCreators";
+import { useInput } from "../../services/custom-hooks";
+// import { useState } from "react";
 
 const Login = () => {
 
     const dispatch = useDispatch();
+    const username = useInput("text", "", "Enter Username");
+    const password = useInput("password", "", "Enter Password");
+    // const [error, setError] = useState();
 
     const login = e => {
         e.preventDefault();
         dispatch(loginUser({
-            username: "Siddhartha",
-            email: "sid@mail.com",
-            password: "qwerty1234"
+            username: username.value,
+            password: password.value
         }));
     };
 
@@ -25,18 +30,13 @@ const Login = () => {
                         <Card.Title>Login</Card.Title>
                         <Form onSubmit={login}>
                             <Form.Group className="mb-3" controlId="formBasicUsername">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
-                            </Form.Group>
-
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control {...username} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
+                                <Form.Control {...password} />
                             </Form.Group>
 
                             <Button variant="primary" type="submit">

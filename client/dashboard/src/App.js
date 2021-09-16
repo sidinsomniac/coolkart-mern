@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import './App.css';
 
+import AuthGuard from "./components/AuthGuard";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
@@ -17,7 +18,7 @@ const App = () => {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/" component={Dashboard} />
+            <AuthGuard path="/" component={Dashboard} />
           </Switch>
         </Container>
       </Router>
