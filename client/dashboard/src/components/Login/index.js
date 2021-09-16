@@ -5,14 +5,15 @@ import { Form, Button, Row, Col, Card, Spinner } from "react-bootstrap";
 
 import { loginUser } from "../../actions/actionCreators";
 import { useInput } from "../../services/custom-hooks";
+import ErrorAlert from "../ErrorAlert";
 import "./Login.css";
 
 const Login = props => {
 
     const dispatch = useDispatch();
-    const username = useInput("text", "", "Enter Username");
-    const password = useInput("password", "", "Enter Password");
     const authStore = useSelector(state => state.auth);
+    const username = useInput("text", "", "Enter Username", authStore.errorMessages.username);
+    const password = useInput("password", "", "Enter Password", authStore.errorMessages.password);
 
     if (authStore.authenticated) return <Redirect to="/" />;
 
@@ -33,6 +34,14 @@ const Login = props => {
                 <Card>
                     <Card.Body className="login-card">
                         <Card.Title>Login</Card.Title>
+                        {(authStore.errorMessages.errors?.length || authStore.errorMessages[0]?.message) ? (
+                            <ErrorAlert errorMessage={authStore.errorMessages[0]?.message}>
+                                <ul>
+                                    {authStore.errorMessages.errors?.map(error => <li key={error?.message}>{error?.message}</li>)}
+                                </ul>
+                            </ErrorAlert>
+                        ) : null}
+
                         {
                             authStore.loading ? (
                                 <Spinner className="loader" animation="border" role="status">

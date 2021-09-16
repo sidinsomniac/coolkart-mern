@@ -17,9 +17,11 @@ const validateRegisterBody = [
 
 const validateLoginBody = [
     check('username')
-        .notEmpty(),
+        .notEmpty()
+        .withMessage('Username cannot be empty'),
     check('password')
         .notEmpty()
+        .withMessage('Password cannot be empty')
 ];
 
 const validateProductBody = [

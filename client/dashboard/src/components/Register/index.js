@@ -41,7 +41,7 @@ const Register = () => {
                         {(regStore.errorMessages.errors?.length || regStore.errorMessages[0]?.message) ? (
                             <ErrorAlert errorMessage={regStore.errorMessages[0]?.message}>
                                 <ul>
-                                    {regStore.errorMessages.errors?.map(error => <li>{error?.message}</li>)}
+                                    {regStore.errorMessages.errors?.map(error => <li key={error?.message}>{error?.message}</li>)}
                                 </ul>
                             </ErrorAlert>
                         ) : null}
