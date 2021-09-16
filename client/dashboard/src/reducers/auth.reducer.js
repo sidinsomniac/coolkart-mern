@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import ACTIONS from "../actions/constants";
 
 const initialState = {
@@ -9,7 +10,8 @@ const initialState = {
         role: ""
     },
     loading: false,
-    errorMessage: ''
+    errorMessage: '',
+    authenticated: false
 };
 
 const authReducer = (state = initialState, action) => {
@@ -25,13 +27,33 @@ const authReducer = (state = initialState, action) => {
                 token: action.payload.token,
                 user: action.payload.user,
                 loading: false,
-                errorMessage: ''
+                errorMessage: '',
+                authenticated: true
             };
         case ACTIONS.LOGIN_FAILURE:
+            window.localStorage.removeItem("userToken");
             return {
                 ...state,
                 ...initialState,
                 errorMessage: action.payload.errorMessage
+            };
+        case ACTIONS.USER_LOGGED_IN:
+            const token = window.localStorage.getItem("userToken");
+            const decodedToken = jwt.decode(token, "LORDOFTHERINGS");
+            const user = decodedToken?.user;
+            if (user?.username)
+                return {
+                    ...state,
+                    authenticated: true,
+                    user,
+                    token: token
+                };
+            else return { ...state };
+        case ACTIONS.LOGOUT_USER:
+            window.localStorage.removeItem("userToken");
+            return {
+                ...state,
+                ...initialState
             };
         default:
             return { ...state };

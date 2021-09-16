@@ -1,17 +1,22 @@
 import React from 'react';
-import { useDispatch } from "react-redux";
+import { Redirect } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
 
 import { loginUser } from "../../actions/actionCreators";
 import { useInput } from "../../services/custom-hooks";
-// import { useState } from "react";
 
-const Login = () => {
+const Login = props => {
 
     const dispatch = useDispatch();
     const username = useInput("text", "", "Enter Username");
     const password = useInput("password", "", "Enter Password");
-    // const [error, setError] = useState();
+    const authStore = useSelector(state => state.auth);
+
+    if (authStore.authenticated) {
+        console.log("Authenticated", authStore);
+        return <Redirect to="/" />;
+    }
 
     const login = e => {
         e.preventDefault();

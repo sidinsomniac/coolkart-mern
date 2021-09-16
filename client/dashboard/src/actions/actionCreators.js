@@ -22,3 +22,15 @@ export const loginUser = user => {
         }
     };
 };
+
+export const isUserLoggedIn = () => {
+    return {
+        type: ACTIONS.USER_LOGGED_IN
+    };
+};
+
+export const logoutUser = () => {
+    return {
+        type: ACTIONS.LOGOUT_USER
+    };
+};

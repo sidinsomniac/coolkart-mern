@@ -1,7 +1,16 @@
 import React from 'react';
+import { Redirect } from "react-router";
+import { useSelector } from "react-redux";
+
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
 
 const Register = () => {
+    const authStore = useSelector(state => state.auth);
+
+    if (authStore.authenticated) {
+        return <Redirect to="/" />;
+    }
+
     return (
         <Row className="my-5">
             <Col></Col>
