@@ -1,10 +1,18 @@
 import React from 'react';
+import { Row, Col } from "react-bootstrap";
+
+import "./Dashboard.css";
 
 const Dashboard = () => {
     return (
-        <div>
-            Dashboard
-        </div>
+        <Row className="dashboard">
+            <Col md={2} className="sidebar p-3">
+                Sidebar
+            </Col>
+            <Col md={10} className="container p-3">
+                Container
+            </Col>
+        </Row>
     );
 };
 

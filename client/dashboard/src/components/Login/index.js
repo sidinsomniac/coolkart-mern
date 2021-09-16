@@ -1,10 +1,11 @@
 import React from 'react';
 import { Redirect } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Button, Row, Col, Card } from "react-bootstrap";
+import { Form, Button, Row, Col, Card, Spinner } from "react-bootstrap";
 
 import { loginUser } from "../../actions/actionCreators";
 import { useInput } from "../../services/custom-hooks";
+import "./Login.css";
 
 const Login = props => {
 
@@ -13,10 +14,7 @@ const Login = props => {
     const password = useInput("password", "", "Enter Password");
     const authStore = useSelector(state => state.auth);
 
-    if (authStore.authenticated) {
-        console.log("Authenticated", authStore);
-        return <Redirect to="/" />;
-    }
+    if (authStore.authenticated) return <Redirect to="/" />;
 
     const login = e => {
         e.preventDefault();
@@ -24,30 +22,40 @@ const Login = props => {
             username: username.value,
             password: password.value
         }));
+        username.setValue("");
+        password.setValue("");
     };
 
     return (
         <Row className="my-5">
             <Col></Col>
-            <Col xs={6}>
+            <Col xs={4}>
                 <Card>
-                    <Card.Body>
+                    <Card.Body className="login-card">
                         <Card.Title>Login</Card.Title>
-                        <Form onSubmit={login}>
-                            <Form.Group className="mb-3" controlId="formBasicUsername">
-                                <Form.Label>Username</Form.Label>
-                                <Form.Control {...username} />
-                            </Form.Group>
+                        {
+                            authStore.loading ? (
+                                <Spinner className="loader" animation="border" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </Spinner>
+                            ) : (
+                                <Form onSubmit={login}>
+                                    <Form.Group className="mb-3" controlId="formBasicUsername">
+                                        <Form.Label>Username</Form.Label>
+                                        <Form.Control {...username} />
+                                    </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control {...password} />
-                            </Form.Group>
+                                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control {...password} />
+                                    </Form.Group>
 
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
-                        </Form>
+                                    <Button variant="primary" type="submit">
+                                        Submit
+                                    </Button>
+                                </Form>
+                            )
+                        }
                     </Card.Body>
                 </Card>
             </Col>

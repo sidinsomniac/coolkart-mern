@@ -12,7 +12,7 @@ const validateRegisterBody = [
         .isLength({ min: 5 })
         .withMessage('Password must be at least 5 chars long')
         .matches(/\d/)
-        .withMessage('must contain a number')
+        .withMessage('Password must contain a number')
 ];
 
 const validateLoginBody = [
@@ -43,10 +43,15 @@ const mapExpressValidatorResult = validatedArray => {
         message: "",
         statusCode: 401
     };
-    const errorArray = validatedArray.errors.map(error => {
-        const newError = { ...expressError };
-        newError.message = `${error.param}: ${error.msg}`;
-        return newError;
+    const errorArray = {
+        errors: validatedArray.errors.map(error => {
+            const newError = { ...expressError };
+            newError.message = error.msg;
+            return newError;
+        })
+    };
+    validatedArray.errors.forEach(error => {
+        errorArray[error.param] = error.msg;
     });
     return errorArray;
 };

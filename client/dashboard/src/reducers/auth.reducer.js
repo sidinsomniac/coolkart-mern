@@ -10,7 +10,7 @@ const initialState = {
         role: ""
     },
     loading: false,
-    errorMessage: '',
+    errorMessages: '',
     authenticated: false
 };
 
@@ -27,7 +27,7 @@ const authReducer = (state = initialState, action) => {
                 token: action.payload.token,
                 user: action.payload.user,
                 loading: false,
-                errorMessage: '',
+                errorMessages: {},
                 authenticated: true
             };
         case ACTIONS.LOGIN_FAILURE:
@@ -35,7 +35,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...initialState,
-                errorMessage: action.payload.errorMessage
+                errorMessages: action.payload.errorMessages
             };
         case ACTIONS.USER_LOGGED_IN:
             const token = window.localStorage.getItem("userToken");

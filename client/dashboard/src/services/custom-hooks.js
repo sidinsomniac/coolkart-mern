@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useInput = (type, initialValue, placeholder = "") => {
+export const useInput = (type, initialValue, placeholder = "", errorMessages) => {
     const [value, setValue] = useState(initialValue);
 
     const onChange = e => {
@@ -9,8 +9,10 @@ export const useInput = (type, initialValue, placeholder = "") => {
 
     return {
         value,
+        setValue,
         onChange,
         type,
-        placeholder
+        placeholder,
+        ...(errorMessages && { isInvalid: errorMessages })
     };
 };

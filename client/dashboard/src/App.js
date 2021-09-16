@@ -1,8 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-
-import { Container } from "react-bootstrap";
 import './App.css';
 
 import AuthGuard from "./components/AuthGuard";
@@ -27,13 +25,11 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-      <Container>
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <AuthGuard path="/" component={Dashboard} />
-        </Switch>
-      </Container>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <AuthGuard path="/" component={Dashboard} />
+      </Switch>
     </div>
   );
 };
