@@ -1,0 +1,59 @@
+ul {
+  border-left: 1px solid;
+  padding-left: 12px;
+  margin-left: 20px;
+}
+
+ul:last-child {
+  border-color: #dcdcdc;
+}
+
+ul:last-child ul {
+  border-color: #a0a0a0;
+}
+
+ul:last-child ul ul {
+  border-color: #606060;
+}
+
+ul:last-child ul ul {
+  border-color: #313131;
+}
+
+li {
+  list-style: none;
+}
+
+.category-badge {
+  position: relative;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 3px 10px;
+  margin: 5px auto;
+}
+
+.category-badge:hover:after {
+  content: "\2795";
+  color: black;
+  position: absolute;
+  right: -18px;
+  font-size: 12px;
+}
+
+ul:last-child .category-badge {
+  background: #e7b52a;
+}
+
+ul:last-child ul .category-badge {
+  background: #61b5fd;
+}
+
+ul:last-child ul ul .category-badge {
+  background: #7ffb7f;
+}
+
+ul:last-child ul ul ul .category-badge {
+  background: #fb7ff5;
+}
