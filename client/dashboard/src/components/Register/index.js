@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Form, Button, Row, Col, Card, Spinner } from "react-bootstrap";
 
 import { useInput } from "../../services/custom-hooks";
-import { registerUser } from "../../actions/actionCreators";
+import { registerUser } from "../../actions/auth.action";
 import ErrorAlert from "../ErrorAlert";
 
 const Register = () => {

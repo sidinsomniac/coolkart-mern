@@ -1,31 +1,31 @@
-import ACTIONS from "./constants";
+import { AUTHACTIONS } from "./constants";
 import authService from "../services/auth.service";
 
 export const resetAuthError = () => {
     return {
-        type: ACTIONS.REMOVE_ERROR
+        type: AUTHACTIONS.REMOVE_ERROR
     };
 };
 
 export const isUserLoggedIn = () => {
     return {
-        type: ACTIONS.USER_LOGGED_IN
+        type: AUTHACTIONS.USER_LOGGED_IN
     };
 };
 
 export const loginUser = user => {
     return async dispatch => {
-        dispatch({ type: ACTIONS.LOGIN_USER });
+        dispatch({ type: AUTHACTIONS.LOGIN_USER });
         try {
             const response = await authService.loginUser({ ...user });
             dispatch({
-                type: ACTIONS.LOGIN_SUCCESS,
+                type: AUTHACTIONS.LOGIN_SUCCESS,
                 payload: response.data
             });
             window.localStorage.setItem("userToken", response.data?.token);
         } catch (err) {
             dispatch({
-                type: ACTIONS.LOGIN_FAILURE,
+                type: AUTHACTIONS.LOGIN_FAILURE,
                 payload: {
                     errorMessages: err.response.data.message
                 }
@@ -37,18 +37,18 @@ export const loginUser = user => {
 
 export const registerUser = user => {
     return async dispatch => {
-        dispatch({ type: ACTIONS.REGISTER_USER });
+        dispatch({ type: AUTHACTIONS.REGISTER_USER });
         try {
             const registrationSuccessMessage = await authService.registerUser({ ...user });
             dispatch({
-                type: ACTIONS.REGISTER_SUCCESS,
+                type: AUTHACTIONS.REGISTER_SUCCESS,
                 payload: {
                     message: registrationSuccessMessage.data.message
                 }
             });
         } catch (err) {
             dispatch({
-                type: ACTIONS.REGISTER_FAILURE,
+                type: AUTHACTIONS.REGISTER_FAILURE,
                 payload: {
                     errorMessages: err.response.data.message
                 }
@@ -60,19 +60,19 @@ export const registerUser = user => {
 export const logoutUser = () => {
     return async dispatch => {
         dispatch({
-            type: ACTIONS.LOGOUT_USER
+            type: AUTHACTIONS.LOGOUT_USER
         });
         try {
             const logoutMessage = await authService.logoutUser();
             dispatch({
-                type: ACTIONS.LOGOUT_SUCCESS,
+                type: AUTHACTIONS.LOGOUT_SUCCESS,
                 payload: {
                     message: logoutMessage.data.message
                 }
             });
         } catch (err) {
             dispatch({
-                type: ACTIONS.LOGOUT_FAILURE,
+                type: AUTHACTIONS.LOGOUT_FAILURE,
                 payload: {
                     errorMessages: err.response.data.message[0]
                 }

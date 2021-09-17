@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
 import { Toast, ToastContainer } from "react-bootstrap";
-import { resetAuthError } from "../../actions/actionCreators";
+import { resetAuthError } from "../../actions/auth.action";
 import "./Snackbar.css";
 
 function Snackbar({ errorMessage }) {

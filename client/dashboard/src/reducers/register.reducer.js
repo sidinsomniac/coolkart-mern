@@ -1,4 +1,4 @@
-import ACTIONS from "../actions/constants";
+import { AUTHACTIONS } from "../actions/constants";
 
 const initialState = {
     successMessage: "",
@@ -8,19 +8,19 @@ const initialState = {
 
 const registrationReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ACTIONS.REGISTER_USER:
+        case AUTHACTIONS.REGISTER_USER:
             return {
                 ...state,
                 loading: true
             };
-        case ACTIONS.REGISTER_SUCCESS:
+        case AUTHACTIONS.REGISTER_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 errorMessages: {},
                 successMessage: action.payload.message
             };
-        case ACTIONS.REGISTER_FAILURE:
+        case AUTHACTIONS.REGISTER_FAILURE:
             return {
                 ...state,
                 loading: false,

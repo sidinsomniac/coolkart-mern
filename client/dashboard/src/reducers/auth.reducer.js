@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import ACTIONS from "../actions/constants";
+import { AUTHACTIONS } from "../actions/constants";
 
 const initialState = {
     token: null,
@@ -16,28 +16,27 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ACTIONS.LOGIN_USER:
+        case AUTHACTIONS.LOGIN_USER:
             return {
                 ...state,
                 loading: true
             };
-        case ACTIONS.LOGIN_SUCCESS:
+        case AUTHACTIONS.LOGIN_SUCCESS:
             return {
                 ...state,
+                ...initialState,
                 token: action.payload.token,
                 user: action.payload.user,
-                loading: false,
-                errorMessages: {},
                 authenticated: true
             };
-        case ACTIONS.LOGIN_FAILURE:
+        case AUTHACTIONS.LOGIN_FAILURE:
             window.localStorage.removeItem("userToken");
             return {
                 ...state,
                 ...initialState,
                 errorMessages: action.payload.errorMessages
             };
-        case ACTIONS.USER_LOGGED_IN:
+        case AUTHACTIONS.USER_LOGGED_IN:
             const token = window.localStorage.getItem("userToken");
             const decodedToken = jwt.decode(token, "LORDOFTHERINGS");
             const user = decodedToken?.user;
@@ -49,23 +48,23 @@ const authReducer = (state = initialState, action) => {
                     token: token
                 };
             else return { ...state };
-        case ACTIONS.LOGOUT_USER:
+        case AUTHACTIONS.LOGOUT_USER:
             return {
                 ...state,
                 loading: true
             };
-        case ACTIONS.LOGOUT_SUCCESS:
+        case AUTHACTIONS.LOGOUT_SUCCESS:
             window.localStorage.removeItem("userToken");
             return {
                 ...state,
                 ...initialState
             };
-        case ACTIONS.LOGOUT_FAILURE:
+        case AUTHACTIONS.LOGOUT_FAILURE:
             return {
                 ...state,
                 errorMessages: action.payload.errorMessages
             };
-        case ACTIONS.REMOVE_ERROR:
+        case AUTHACTIONS.REMOVE_ERROR:
             return {
                 ...state,
                 errorMessages: {}

@@ -18,6 +18,11 @@ const Sidebar = () => {
                     </Nav.Link>
                 </ListGroup.Item>
                 <ListGroup.Item>
+                    <Nav.Link as={Link} to="/categories">
+                        Categories
+                    </Nav.Link>
+                </ListGroup.Item>
+                <ListGroup.Item>
                     <Nav.Link as={Link} to="/orders">
                         Orders
                     </Nav.Link>

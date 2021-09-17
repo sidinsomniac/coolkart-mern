@@ -7,6 +7,7 @@ import DashboardContainer from "./DashboardContainer";
 import Sidebar from "./Sidebar";
 import Orders from "./Orders";
 import Products from "./Products";
+import Categories from "./Categories";
 
 const Dashboard = () => {
     return <Row className="dashboard">
@@ -14,6 +15,7 @@ const Dashboard = () => {
             <Sidebar />
         </Col>
         <Col md={10}>
+            <Route path="/categories" component={Categories} />
             <Route path="/products" component={Products} />
             <Route path="/orders" component={Orders} />
             <Route path="/" exact component={DashboardContainer} />

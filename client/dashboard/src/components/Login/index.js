@@ -3,7 +3,7 @@ import { Redirect } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col, Card, Spinner } from "react-bootstrap";
 
-import { loginUser } from "../../actions/actionCreators";
+import { loginUser } from "../../actions/auth.action";
 import { useInput } from "../../services/custom-hooks";
 import ErrorAlert from "../ErrorAlert";
 import "./Login.css";

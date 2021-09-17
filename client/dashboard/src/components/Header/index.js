@@ -5,7 +5,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import "./Header.css";
-import { logoutUser } from "../../actions/actionCreators";
+import { logoutUser } from "../../actions/auth.action";
 import Snackbar from "../Snackbar";
 
 const Header = () => {

@@ -6,7 +6,7 @@ import './App.css';
 import Header from "./components/Header";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { isUserLoggedIn } from "./actions/actionCreators";
+import { isUserLoggedIn } from "./actions/auth.action";
 import AuthGuard from "./components/AuthGuard";
 import Dashboard from "./components/Dashboard";
 
