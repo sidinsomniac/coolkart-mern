@@ -1,15 +1,14 @@
+import { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import './App.css';
-
-import AuthGuard from "./components/AuthGuard";
 import Header from "./components/Header";
-import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import { useEffect } from "react";
 import { isUserLoggedIn } from "./actions/actionCreators";
+import AuthGuard from "./components/AuthGuard";
+import Dashboard from "./components/Dashboard";
 
 const App = () => {
 
@@ -28,7 +27,7 @@ const App = () => {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <AuthGuard path="/" component={Dashboard} />
+        <AuthGuard component={Dashboard} />
       </Switch>
     </div>
   );

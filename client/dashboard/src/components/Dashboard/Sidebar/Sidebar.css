@@ -1,0 +1,13 @@
+.sidebar-menu {
+  background: #eee;
+  box-shadow: 5px 0 10px #00000045;
+  height: 100%;
+}
+
+.sidebar-menu .list-group-item {
+  background-color: transparent;
+}
+
+.sidebar-menu .nav-link {
+  color: black;
+}

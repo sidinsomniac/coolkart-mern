@@ -16,8 +16,6 @@ const Header = () => {
         dispatch(logoutUser());
     };
 
-    console.log({ authStore });
-
     return (
         <>
             <Navbar bg="dark" variant="dark">
@@ -33,7 +31,7 @@ const Header = () => {
                                 </>
                             )
                         ) :
-                            <Nav.Link onClick={logout}>Logout</Nav.Link>
+                            <Nav.Link onClick={logout}>Logout {authStore.user.username}</Nav.Link>
                         }
                     </Navbar.Collapse>
                 </Container>
