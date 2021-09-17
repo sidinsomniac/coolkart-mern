@@ -10,7 +10,7 @@ const initialState = {
         role: ""
     },
     loading: false,
-    errorMessages: '',
+    errorMessages: {},
     authenticated: false
 };
 
@@ -50,10 +50,25 @@ const authReducer = (state = initialState, action) => {
                 };
             else return { ...state };
         case ACTIONS.LOGOUT_USER:
+            return {
+                ...state,
+                loading: true
+            };
+        case ACTIONS.LOGOUT_SUCCESS:
             window.localStorage.removeItem("userToken");
             return {
                 ...state,
                 ...initialState
+            };
+        case ACTIONS.LOGOUT_FAILURE:
+            return {
+                ...state,
+                errorMessages: action.payload.errorMessages
+            };
+        case ACTIONS.REMOVE_ERROR:
+            return {
+                ...state,
+                errorMessages: {}
             };
         default:
             return { ...state };

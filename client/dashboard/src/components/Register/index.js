@@ -25,9 +25,9 @@ const Register = () => {
             email: email.value,
             password: password.value
         }));
-        username.setValue("");
-        email.setValue("");
-        password.setValue("");
+        username.resetval();
+        email.resetval();
+        password.resetval();
     };
 
     return (
@@ -55,17 +55,17 @@ const Register = () => {
                                 <Form onSubmit={register}>
                                     <Form.Group className="mb-3" controlId="formBasicUsername">
                                         <Form.Label>Username</Form.Label>
-                                        <Form.Control {...username} />
+                                        <Form.Control {...username} resetval="" />
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label>Email address</Form.Label>
-                                        <Form.Control {...email} />
+                                        <Form.Control {...email} resetval="" />
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="formBasicPassword">
                                         <Form.Label>Password</Form.Label>
-                                        <Form.Control {...password} />
+                                        <Form.Control {...password} resetval="" />
                                     </Form.Group>
 
                                     <Button variant="primary" type="submit">

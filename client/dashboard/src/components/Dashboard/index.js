@@ -9,7 +9,7 @@ const Dashboard = () => {
             <Col md={2} className="sidebar p-3">
                 Sidebar
             </Col>
-            <Col md={10} className="container p-3">
+            <Col md={10} className="dashboard-container p-3">
                 Container
             </Col>
         </Row>

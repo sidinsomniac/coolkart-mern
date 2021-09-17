@@ -10,9 +10,15 @@ const registerUser = async user => {
     return newAdminResponse;
 };
 
+const logoutUser = async user => {
+    const logoutResponse = await axios.post("/admin/logout");
+    return logoutResponse;
+};
+
 const authService = {
     loginUser,
-    registerUser
+    registerUser,
+    logoutUser
 };
 
 export default authService;

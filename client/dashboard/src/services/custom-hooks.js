@@ -7,9 +7,13 @@ export const useInput = (type, initialValue, placeholder = "", errorMessages) =>
         setValue(e.target.value);
     };
 
+    const resetValue = () => {
+        setValue("");
+    };
+
     return {
         value,
-        setValue,
+        resetval: resetValue,
         onChange,
         type,
         placeholder,

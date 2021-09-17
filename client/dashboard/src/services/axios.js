@@ -1,10 +1,12 @@
 import axios from "axios";
 import { baseURL } from "./urlConfig";
 
+const token = window.localStorage.getItem("userToken");
+
 export const axiosInstance = axios.create({
     baseURL,
     headers: {
-        "Authorization": ""
+        "Authorization": `Bearer ${token}`
     }
 });
 

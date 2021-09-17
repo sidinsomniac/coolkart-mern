@@ -23,8 +23,8 @@ const Login = props => {
             username: username.value,
             password: password.value
         }));
-        username.setValue("");
-        password.setValue("");
+        username.resetval();
+        password.resetval();
     };
 
     return (
@@ -51,12 +51,12 @@ const Login = props => {
                                 <Form onSubmit={login}>
                                     <Form.Group className="mb-3" controlId="formBasicUsername">
                                         <Form.Label>Username</Form.Label>
-                                        <Form.Control {...username} />
+                                        <Form.Control {...username} resetval="" />
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="formBasicPassword">
                                         <Form.Label>Password</Form.Label>
-                                        <Form.Control {...password} />
+                                        <Form.Control {...password} resetval="" />
                                     </Form.Group>
 
                                     <Button variant="primary" type="submit">

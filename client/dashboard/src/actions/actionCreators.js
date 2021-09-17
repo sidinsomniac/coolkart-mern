@@ -1,6 +1,18 @@
 import ACTIONS from "./constants";
 import authService from "../services/auth.service";
 
+export const resetAuthError = () => {
+    return {
+        type: ACTIONS.REMOVE_ERROR
+    };
+};
+
+export const isUserLoggedIn = () => {
+    return {
+        type: ACTIONS.USER_LOGGED_IN
+    };
+};
+
 export const loginUser = user => {
     return async dispatch => {
         dispatch({ type: ACTIONS.LOGIN_USER });
@@ -35,7 +47,6 @@ export const registerUser = user => {
                 }
             });
         } catch (err) {
-            console.log({ err });
             dispatch({
                 type: ACTIONS.REGISTER_FAILURE,
                 payload: {
@@ -46,14 +57,26 @@ export const registerUser = user => {
     };
 };
 
-export const isUserLoggedIn = () => {
-    return {
-        type: ACTIONS.USER_LOGGED_IN
-    };
-};
-
 export const logoutUser = () => {
-    return {
-        type: ACTIONS.LOGOUT_USER
+    return async dispatch => {
+        dispatch({
+            type: ACTIONS.LOGOUT_USER
+        });
+        try {
+            const logoutMessage = await authService.logoutUser();
+            dispatch({
+                type: ACTIONS.LOGOUT_SUCCESS,
+                payload: {
+                    message: logoutMessage.data.message
+                }
+            });
+        } catch (err) {
+            dispatch({
+                type: ACTIONS.LOGOUT_FAILURE,
+                payload: {
+                    errorMessages: err.response.data.message[0]
+                }
+            });
+        }
     };
 };

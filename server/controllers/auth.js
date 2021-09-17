@@ -4,7 +4,7 @@ const User = require("../models/user");
 const ExpressError = require("../utils/ExpressError");
 const { SECRET_KEY } = require("../utils/config");
 
-module.exports.register = async (req, res, next) => {
+module.exports.register = async (req, res) => {
     const { body: { username, email, password } } = req;
 
     const foundUser = await User.findOne({ username });
@@ -21,7 +21,7 @@ module.exports.register = async (req, res, next) => {
     });
 };
 
-module.exports.login = async (req, res, next) => {
+module.exports.login = async (req, res) => {
     const { body: { username, password } } = req;
     const foundUser = await User.findOne({ username });
     if (!foundUser) throw new ExpressError("No such user found", 404);
@@ -35,7 +35,13 @@ module.exports.login = async (req, res, next) => {
     };
 
     const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: "2h" });
-
-
+    res.cookie("token", token, { expiresIn: "2h" });
     res.status(200).json({ user, token });
+};
+
+module.exports.logout = async (req, res) => {
+    res.clearCookie("token");
+    res.status(200).json({
+        message: "User has been logged out successfully"
+    });
 };

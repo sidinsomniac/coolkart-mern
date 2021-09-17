@@ -37,6 +37,13 @@ module.exports.login = async (req, res, next) => {
     };
 
     const token = jwt.sign({ user }, SECRET_KEY, { expiresIn: "2h" });
-
+    res.cookie("token", token, { expiresIn: "2h" });
     res.status(200).json({ user, token });
+};
+
+module.exports.logout = async (req, res) => {
+    res.clearCookie("token");
+    res.status(200).json({
+        message: "User has been logged out successfully"
+    });
 };
