@@ -22,11 +22,9 @@ const CategoryForm = ({ parentCategory, setShow }) => {
         if (selectedFile?.name) {
             formData.append("categoryImage", selectedFile);
         }
-        dispatch(addNewCategory(formData));
+        await dispatch(addNewCategory(formData));
         setShow(false);
-        setTimeout(() => {
-            dispatch(getAllCategories());
-        }, 2000);
+        await dispatch(getAllCategories());
     };
 
     const selectFile = e => {

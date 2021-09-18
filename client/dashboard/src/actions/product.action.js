@@ -23,22 +23,28 @@ export const getAllProducts = () => {
     };
 };
 
-export const addNewCategory = productDetails => {
+export const addNewProduct = productDetailsForm => {
     return async dispatch => {
         dispatch({
             type: PRODUCTACTIONS.ADD_PRODUCT
         });
         try {
-            const response = await productServices.addProduct(productDetails);
+            await productServices.addProduct(productDetailsForm);
             dispatch({
                 type: PRODUCTACTIONS.ADD_PRODUCT_SUCCESS,
-                payload: response.data
+                payload: {
+                    name: productDetailsForm.get("name"),
+                    category: productDetailsForm.get("category"),
+                    price: productDetailsForm.get("price"),
+                    quantity: productDetailsForm.get("quantity"),
+                    description: productDetailsForm.get("description")
+                }
             });
         } catch (err) {
             dispatch({
                 type: PRODUCTACTIONS.ADD_PRODUCT_FAILURE,
                 payload: {
-                    errorMessages: err.response.data.message[0]
+                    errorMessages: err.response.data.message
                 }
             });
         }

@@ -1,6 +1,6 @@
 import axios from "./axios";
 
-const fetchCategories = async user => {
+const fetchCategories = async () => {
     const categories = await axios.get("/category");
     return categories;
 };

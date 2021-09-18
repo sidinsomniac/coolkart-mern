@@ -7,13 +7,13 @@ import ToggleForm from "../../ToggleForm";
 import ProductForm from "./ProductForm";
 
 const Products = () => {
-    const [categories, products] = useSelector(state => {
+    const [categories, productStore] = useSelector(state => {
         const categoryPeripherals = getPeripheralCategories(state.cat?.categories);
         const categoryList = categoryPeripherals.sort((a, b) => a.name.localeCompare(b.name));
-        return [categoryList, state.prod.products];
+        return [categoryList, state.prod];
     });
 
-    console.log({ categories, products });
+    console.log({ categories, products: productStore });
 
     return (
         <>
@@ -26,7 +26,7 @@ const Products = () => {
                 </Col>
                 <Col md={5}>
                     <ToggleForm>
-                        <ProductForm categories={categories} />
+                        <ProductForm categories={categories} productStore={productStore} />
                     </ToggleForm>
                 </Col>
             </Row>

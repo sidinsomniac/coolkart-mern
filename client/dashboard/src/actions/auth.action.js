@@ -12,7 +12,7 @@ export const resetAuthError = () => {
 export const isUserLoggedIn = () => {
     const token = window.localStorage.getItem("userToken");
     const decodedToken = jwt.decode(token, "LORDOFTHERINGS");
-    if (Date.now() >= decodedToken.exp * 1000) {
+    if (Date.now() >= decodedToken?.exp * 1000 || !token) {
         window.localStorage.removeItem("userToken");
         document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         return {

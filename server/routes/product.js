@@ -11,6 +11,6 @@ const { validateProductBody, isRequestValidated } = require("../utils/validator"
 
 router.route("/")
     .get(catchAsyncError(getProducts))
-    .post(requireToken, checkAdmin, validateProductBody, isRequestValidated, upload.single("productPhoto"), catchAsyncError(createProduct));
+    .post(requireToken, checkAdmin, upload.single("productPhoto"), validateProductBody, isRequestValidated, catchAsyncError(createProduct));
 
 module.exports = router;
