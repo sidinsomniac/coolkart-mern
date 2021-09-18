@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import { Route } from "react-router";
 
@@ -8,8 +9,16 @@ import Sidebar from "./Sidebar";
 import Orders from "./Orders";
 import Products from "./Products";
 import Categories from "./Categories";
+import { getAllCategories } from "../../actions/category.action";
 
 const Dashboard = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getAllCategories());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return <Row className="dashboard">
         <Col md={2}>
             <Sidebar />

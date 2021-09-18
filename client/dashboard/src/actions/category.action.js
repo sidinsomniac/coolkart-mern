@@ -1,5 +1,4 @@
 import categoryServices from "../services/category.service";
-import categoryService from "../services/category.service";
 import { CATEGORYACTIONS } from "./constants";
 
 export const getAllCategories = () => {
@@ -8,7 +7,7 @@ export const getAllCategories = () => {
             type: CATEGORYACTIONS.FETCH_CATEGORIES
         });
         try {
-            const response = await categoryService.fetchCategories();
+            const response = await categoryServices.fetchCategories();
             dispatch({
                 type: CATEGORYACTIONS.FETCH_CATEGORIES_SUCCESS,
                 payload: response.data

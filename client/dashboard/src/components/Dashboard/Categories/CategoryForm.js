@@ -7,7 +7,7 @@ import { addNewCategory, getAllCategories } from "../../../actions/category.acti
 const CategoryForm = ({ parentCategory, setShow }) => {
     const dispatch = useDispatch();
     const categoryStore = useSelector(state => state.cat);
-    const categoryName = useInput("text", "", "Enter New Category Name");
+    const categoryName = useInput("text", "", "Enter New Category Name", categoryStore.errorMessages.message);
     const [selectedFile, setSelectedFile] = useState(null);
     const [isChildCategory, setIsChildCategory] = useState(true);
 
@@ -22,9 +22,11 @@ const CategoryForm = ({ parentCategory, setShow }) => {
         if (selectedFile?.name) {
             formData.append("categoryImage", selectedFile);
         }
-        await dispatch(addNewCategory(formData));
+        dispatch(addNewCategory(formData));
         setShow(false);
-        await dispatch(getAllCategories());
+        setTimeout(() => {
+            dispatch(getAllCategories());
+        }, 2000);
     };
 
     const selectFile = e => {

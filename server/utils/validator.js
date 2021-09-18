@@ -26,18 +26,24 @@ const validateLoginBody = [
 
 const validateProductBody = [
     check("name")
-        .notEmpty(),
+        .notEmpty()
+        .withMessage('Product name cannot be empty'),
     check("price")
         .notEmpty()
-        .isInt({ min: 1 }),
+        .isInt({ min: 1 })
+        .withMessage('Price has to be minimum 1 unit'),
     check("description")
         .notEmpty()
-        .isLength({ max: 1000 }),
+        .withMessage('Description cannot be left empty')
+        .isLength({ max: 1000 })
+        .withMessage('Description cannot exceed 1000 characters'),
     check("quantity")
         .notEmpty()
-        .isNumeric(),
+        .isInt({ min: 1 })
+        .withMessage('Quantity has to be minimum 1 unit'),
     check("category")
-        .notEmpty(),
+        .notEmpty()
+        .withMessage('Product has to come under some category')
 ];
 
 const mapExpressValidatorResult = validatedArray => {

@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { useSelector } from "react-redux";
 
 import "./Categories.css";
-import { getAllCategories } from "../../../actions/category.action";
 import { renderCategoryList } from "./helper";
 import DashboardModal from "../../DashboardModal";
 import CategoryForm from "./CategoryForm";
+import Snackbar from "../../Snackbar";
 
 const Categories = () => {
 
     const [show, setShow] = useState(false);
     const [categoryParent, setCategoryParent] = useState("");
-    const dispatch = useDispatch();
     const categoryStore = useSelector(state => state.cat);
 
     const openCategoryForm = (category) => {
@@ -20,12 +19,6 @@ const Categories = () => {
     };
 
     const categoryNestedList = renderCategoryList(categoryStore.categories, openCategoryForm);
-
-
-    useEffect(() => {
-        dispatch(getAllCategories());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <>
@@ -36,6 +29,7 @@ const Categories = () => {
             <DashboardModal show={show} setShow={setShow} heading="Add New Category">
                 <CategoryForm parentCategory={categoryParent} setShow={setShow} />
             </DashboardModal>
+            {categoryStore.errorMessages?.message && <Snackbar errorMessage={categoryStore.errorMessages?.message} />}
 
         </>
     );
