@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 import { AUTHACTIONS } from "../actions/constants";
 
 const initialState = {
@@ -37,11 +36,7 @@ const authReducer = (state = initialState, action) => {
                 errorMessages: action.payload.errorMessages
             };
         case AUTHACTIONS.USER_LOGGED_IN:
-            const token = window.localStorage.getItem("userToken");
-            const decodedToken = jwt.decode(token, "LORDOFTHERINGS");
-            if (Date.now() >= decodedToken.exp * 1000) {
-                window.localStorage.removeItem("userToken");
-                document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            if (action.payload.expired)
                 return {
                     ...state,
                     ...initialState,
@@ -49,15 +44,14 @@ const authReducer = (state = initialState, action) => {
                         message: "Your session has expired."
                     }
                 };
-            } else {
-                const user = decodedToken?.user;
-                return {
-                    ...state,
-                    authenticated: true,
-                    user,
-                    token
-                };
-            }
+
+            return {
+                ...state,
+                authenticated: true,
+                user: action.payload.user,
+                token: action.payload.token
+            };
+
         case AUTHACTIONS.LOGOUT_USER:
             return {
                 ...state,

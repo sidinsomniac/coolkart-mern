@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken";
+
 import { AUTHACTIONS } from "./constants";
 import authService from "../services/auth.service";
 
@@ -8,9 +10,32 @@ export const resetAuthError = () => {
 };
 
 export const isUserLoggedIn = () => {
-    return {
-        type: AUTHACTIONS.USER_LOGGED_IN
-    };
+    const token = window.localStorage.getItem("userToken");
+    const decodedToken = jwt.decode(token, "LORDOFTHERINGS");
+    if (Date.now() >= decodedToken.exp * 1000) {
+        window.localStorage.removeItem("userToken");
+        document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        return {
+            type: AUTHACTIONS.USER_LOGGED_IN,
+            payload: {
+                expired: true
+            }
+        };
+    } else {
+        console.log({
+            now: new Date(Date.now()),
+            expires: new Date(decodedToken.exp * 1000)
+        });
+        return {
+            type: AUTHACTIONS.USER_LOGGED_IN,
+            payload: {
+                expired: false,
+                token,
+                user: decodedToken?.user
+            }
+        };
+    }
+
 };
 
 export const loginUser = user => {
