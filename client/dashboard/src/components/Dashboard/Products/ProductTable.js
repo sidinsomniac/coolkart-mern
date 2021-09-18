@@ -16,7 +16,7 @@ const ProductTable = ({ productStore }) => {
                 <tbody>
                     {productStore.products.map(product => (
                         <tr key={product.id}>
-                            <td>{product.name.substring(0, 30)}...</td>
+                            <td title={product.name + "-" + product.description}>{product.name.substring(0, 30)}...</td>
                             <td>{product.category.name}</td>
                             <td>{product.createdBy.username}</td>
                         </tr>
