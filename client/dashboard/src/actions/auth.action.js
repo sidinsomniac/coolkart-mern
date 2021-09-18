@@ -22,10 +22,6 @@ export const isUserLoggedIn = () => {
             }
         };
     } else {
-        console.log({
-            now: new Date(Date.now()),
-            expires: new Date(decodedToken.exp * 1000)
-        });
         return {
             type: AUTHACTIONS.USER_LOGGED_IN,
             payload: {

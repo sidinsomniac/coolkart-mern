@@ -1,6 +1,5 @@
 .sidebar-menu {
-  background: #eee;
-  box-shadow: 5px 0 10px #00000045;
+  background: #212529;
   height: 100%;
 }
 
@@ -9,5 +8,10 @@
 }
 
 .sidebar-menu .nav-link {
-  color: black;
+  color: white;
+}
+
+.sidebar-menu .active-menu,
+.sidebar-menu .list-group-item:hover {
+  background: rgb(15, 77, 221);
 }

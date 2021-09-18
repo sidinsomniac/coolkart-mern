@@ -31,7 +31,7 @@ const Header = () => {
                                 </>
                             )
                         ) :
-                            <Nav.Link onClick={logout}>Logout {authStore.user.username}</Nav.Link>
+                            <Nav.Link onClick={logout}><i className="bi bi-person-circle"></i> Logout {authStore.user.username}</Nav.Link>
                         }
                     </Navbar.Collapse>
                 </Container>
