@@ -1,7 +1,7 @@
 ul {
   border-left: 1px solid;
-  padding-left: 12px;
-  margin-left: 20px;
+  padding-left: 20px;
+  margin-left: 30px;
 }
 
 ul:last-child {
@@ -30,8 +30,9 @@ li {
   cursor: pointer;
   border-radius: 4px;
   display: inline-block;
+  font-size: 10px;
   padding: 3px 10px;
-  margin: 5px auto;
+  margin: 2px 0;
 }
 
 .category-badge:hover:after {
@@ -42,18 +43,15 @@ li {
   font-size: 12px;
 }
 
-ul:last-child .category-badge {
-  background: #e7b52a;
+ul:last-child ul ul ul .category-badge {
+  background: #d87474;
 }
-
+ul:last-child ul ul .category-badge {
+  background: #75e575;
+}
 ul:last-child ul .category-badge {
   background: #61b5fd;
 }
-
-ul:last-child ul ul .category-badge {
-  background: #7ffb7f;
-}
-
-ul:last-child ul ul ul .category-badge {
-  background: #fb7ff5;
+ul:last-child .category-badge {
+  background: #939393;
 }

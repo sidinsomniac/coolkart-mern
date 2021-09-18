@@ -22,8 +22,25 @@ export const categoryReducer = (state = initialState, action) => {
         case CATEGORYACTIONS.FETCH_CATEGORIES_FAILURE:
             return {
                 ...state,
-                errorMessages: {},
+                errorMessages: action.payload.errorMessages,
                 loading: false
+            };
+        case CATEGORYACTIONS.ADD_CATEGORY:
+            return {
+                ...state,
+                loading: true
+            };
+        case CATEGORYACTIONS.ADD_CATEGORY_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                errorMessages: {}
+            };
+        case CATEGORYACTIONS.ADD_CATEGORY_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                errorMessages: action.payload.errorMessages
             };
         default:
             return { ...state };

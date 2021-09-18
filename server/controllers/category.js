@@ -1,8 +1,14 @@
 const slugify = require("slugify");
 const Category = require("../models/category");
+const ExpressError = require("../utils/ExpressError");
 
 module.exports.createCategory = async (req, res) => {
     const { body: { name, parentId } } = req;
+
+    if (!name) throw new ExpressError("Category name cannot be left empty", 400);
+    const foundCategory = await Category.findOne({ name });
+    if (foundCategory) throw new ExpressError("Category already exists");
+
     const categoryObj = {
         name,
         slug: slugify(name)
