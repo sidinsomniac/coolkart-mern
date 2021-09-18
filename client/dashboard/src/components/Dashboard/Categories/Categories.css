@@ -1,11 +1,12 @@
 ul {
   border-left: 1px solid;
   padding-left: 20px;
-  margin-left: 30px;
+  margin-left: 50px;
 }
 
 ul:last-child {
   border-color: #dcdcdc;
+  letter-spacing: 1px;
 }
 
 ul:last-child ul {

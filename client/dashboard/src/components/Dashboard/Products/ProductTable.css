@@ -1,0 +1,8 @@
+.product-table {
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+.product-table .table th,
+.product-table .table td {
+  font-size: 12px;
+}

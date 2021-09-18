@@ -29,15 +29,11 @@ export const addNewProduct = productDetailsForm => {
             type: PRODUCTACTIONS.ADD_PRODUCT
         });
         try {
-            await productServices.addProduct(productDetailsForm);
+            const response = await productServices.addProduct(productDetailsForm);
             dispatch({
                 type: PRODUCTACTIONS.ADD_PRODUCT_SUCCESS,
                 payload: {
-                    name: productDetailsForm.get("name"),
-                    category: productDetailsForm.get("category"),
-                    price: productDetailsForm.get("price"),
-                    quantity: productDetailsForm.get("quantity"),
-                    description: productDetailsForm.get("description")
+                    message: response.data.message
                 }
             });
         } catch (err) {

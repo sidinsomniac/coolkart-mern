@@ -33,7 +33,6 @@ export const productReducer = (state = initialState, action) => {
         case PRODUCTACTIONS.ADD_PRODUCT_SUCCESS:
             return {
                 ...state,
-                products: state.products.concat(action.payload),
                 loading: false,
                 errorMessages: {}
             };

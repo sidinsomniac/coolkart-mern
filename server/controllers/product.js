@@ -29,6 +29,6 @@ module.exports.createProduct = async (req, res) => {
 };
 
 module.exports.getProducts = async (req, res) => {
-    const products = await Product.find({});
+    const products = await Product.find({}).populate(["category", "createdBy"]);
     res.status(200).json(products);
 };

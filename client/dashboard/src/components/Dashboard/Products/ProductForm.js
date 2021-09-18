@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Spinner } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { addNewProduct } from "../../../actions/product.action";
+import { addNewProduct, getAllProducts } from "../../../actions/product.action";
 
 import { useInput } from "../../../services/custom-hooks";
 import { parseDescription } from "./helper";
@@ -28,6 +28,7 @@ const ProductForm = ({ categories, productStore }) => {
         }
         await dispatch(addNewProduct(formData));
         resetProductFields();
+        await dispatch(getAllProducts());
     };
 
     const resetProductFields = () => {
