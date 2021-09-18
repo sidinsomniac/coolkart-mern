@@ -6,7 +6,7 @@ const fetchCategories = async user => {
 };
 
 const addCategory = async category => {
-    const newCategoryResponse = await axios.post("/category", { ...category });
+    const newCategoryResponse = await axios.post("/category", category);
     return newCategoryResponse;
 };
 

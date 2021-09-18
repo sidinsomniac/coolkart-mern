@@ -39,15 +39,25 @@ const authReducer = (state = initialState, action) => {
         case AUTHACTIONS.USER_LOGGED_IN:
             const token = window.localStorage.getItem("userToken");
             const decodedToken = jwt.decode(token, "LORDOFTHERINGS");
-            const user = decodedToken?.user;
-            if (user?.username)
+            if (Date.now() >= decodedToken.exp * 1000) {
+                window.localStorage.removeItem("userToken");
+                document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                return {
+                    ...state,
+                    ...initialState,
+                    errorMessages: {
+                        message: "Your session has expired."
+                    }
+                };
+            } else {
+                const user = decodedToken?.user;
                 return {
                     ...state,
                     authenticated: true,
                     user,
-                    token: token
+                    token
                 };
-            else return { ...state };
+            }
         case AUTHACTIONS.LOGOUT_USER:
             return {
                 ...state,
